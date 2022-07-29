@@ -55,13 +55,18 @@ namespace IdentityServer3.Core.Configuration.Hosting
                 {
                     var cookieName = options.AuthenticationOptions.CookieOptions.Prefix + LastUsernameCookieName;
                     var value = ctx.Request.Cookies[cookieName];
+                    if (value == null)
+                    {
+                        SetValue(null);
+                        return null;
+                    }
 
                     var bytes = Base64Url.Decode(value);
                     try
                     {
                         bytes = options.DataProtector.Unprotect(bytes, cookieName);
                     }
-                    catch(CryptographicException)
+                    catch (CryptographicException)
                     {
                         SetValue(null);
                         return null;
