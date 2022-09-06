@@ -19,7 +19,7 @@ namespace IdentityServer3.Core.Models
     /// <summary>
     /// Class describing the context of the local authentication
     /// </summary>
-    public class LocalAuthenticationContext
+    public class LocalAuthenticationContext : AuthenticationContextBase
     {
         /// <summary>
         /// Gets or sets the name of the user.
@@ -36,21 +36,5 @@ namespace IdentityServer3.Core.Models
         /// The password.
         /// </value>
         public string Password { get; set; }
-
-        /// <summary>
-        /// Gets or sets the sign in message.
-        /// </summary>
-        /// <value>
-        /// The sign in message.
-        /// </value>
-        public SignInMessage SignInMessage { get; set; }
-
-        /// <summary>
-        /// Gets or sets the authenticate result.
-        /// </summary>
-        /// <value>
-        /// The authenticate result.
-        /// </value>
-        public AuthenticateResult AuthenticateResult { get; set; }
     }
 }

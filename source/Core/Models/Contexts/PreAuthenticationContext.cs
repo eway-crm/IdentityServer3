@@ -19,24 +19,8 @@ namespace IdentityServer3.Core.Models
     /// <summary>
     /// Class describing the context of the pre-authentication stage
     /// </summary>
-    public class PreAuthenticationContext
+    public class PreAuthenticationContext : AuthenticationContextBase
     {
-        /// <summary>
-        /// Gets or sets the sign in message.
-        /// </summary>
-        /// <value>
-        /// The sign in message.
-        /// </value>
-        public SignInMessage SignInMessage { get; set; }
-
-        /// <summary>
-        /// Gets or sets the authenticate result.
-        /// </summary>
-        /// <value>
-        /// The authenticate result.
-        /// </value>
-        public AuthenticateResult AuthenticateResult { get; set; }
-
         /// <summary>
         /// Gets or sets if the login page should be used to show the error from the authenticate result (as opposed to the general error page).
         /// </summary>

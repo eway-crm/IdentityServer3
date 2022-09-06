@@ -19,7 +19,7 @@ namespace IdentityServer3.Core.Models
     /// <summary>
     /// Class describing the context of the external authentication
     /// </summary>
-    public class ExternalAuthenticationContext
+    public class ExternalAuthenticationContext : AuthenticationContextBase
     {
         /// <summary>
         /// Gets or sets the external identity.
@@ -28,21 +28,5 @@ namespace IdentityServer3.Core.Models
         /// The external identity.
         /// </value>
         public ExternalIdentity ExternalIdentity { get; set; }
-        
-        /// <summary>
-        /// Gets or sets the sign in message.
-        /// </summary>
-        /// <value>
-        /// The sign in message.
-        /// </value>
-        public SignInMessage SignInMessage { get; set; }
-
-        /// <summary>
-        /// Gets or sets the authenticate result.
-        /// </summary>
-        /// <value>
-        /// The authenticate result.
-        /// </value>
-        public AuthenticateResult AuthenticateResult { get; set; }
     }
 }
