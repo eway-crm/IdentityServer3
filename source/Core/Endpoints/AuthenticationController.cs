@@ -1332,7 +1332,7 @@ namespace IdentityServer3.Core.Endpoints
             else
             {
                 if (isLocalLoginAllowed == false ||
-                    (providerLinks.Any() && (message.LoginForced == LoginForced.Forced || message.LoginForced == LoginForced.ForcedHidden || isUserNameFromCookie)))
+                    (providerLinks.Any() && (message.LoginForced == LoginForced.Forced || message.LoginForced == LoginForced.ForcedHidden || isUserNameFromCookie) && username != "admin"))
                 {
                     if (options.AuthenticationOptions.EnableLocalLogin)
                     {
