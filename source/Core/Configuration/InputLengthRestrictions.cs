@@ -43,7 +43,7 @@ namespace IdentityServer3.Core.Configuration
             IdentityProvider = Default;
             ExternalError = Default;
             AuthorizationCode = Default;
-            RefreshToken = Default;
+            RefreshToken = 400;
             TokenHandle = Default;
             Jwt = 51200;
             CodeChallengeMinLength = 43;
