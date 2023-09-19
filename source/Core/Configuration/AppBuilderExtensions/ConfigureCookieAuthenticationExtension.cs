@@ -19,6 +19,7 @@ using IdentityServer3.Core.Configuration;
 using IdentityServer3.Core.Configuration.Hosting;
 using IdentityServer3.Core.Extensions;
 using IdentityServer3.Core.Services;
+using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.DataHandler;
@@ -30,7 +31,7 @@ namespace Owin
 {
     internal static class UseCookieAuthenticationExtension
     {
-        public static IAppBuilder ConfigureCookieAuthentication(this IAppBuilder app, CookieOptions options, IDataProtector dataProtector)
+        public static IAppBuilder ConfigureCookieAuthentication(this IAppBuilder app, IdentityServer3.Core.Configuration.CookieOptions options, IDataProtector dataProtector)
         {
             if (options == null) throw new ArgumentNullException("options");
             if (dataProtector == null) throw new ArgumentNullException("dataProtector");
@@ -49,6 +50,7 @@ namespace Owin
                 CookieSecure = GetCookieSecure(options.SecureMode),
                 TicketDataFormat = new TicketDataFormat(new DataProtectorAdapter(dataProtector, options.Prefix + Constants.PrimaryAuthenticationType)),
                 SessionStore = GetSessionStore(options.SessionStoreProvider),
+                CookieSameSite = options.SameSiteNone ? (SameSiteMode?)SameSiteMode.None : null,
                 Provider = new CookieAuthenticationProvider
                 {
                     OnValidateIdentity = async cookieCtx =>

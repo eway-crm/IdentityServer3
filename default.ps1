@@ -11,7 +11,7 @@ properties {
 	$nuget_path = "$base_directory\nuget.exe"
 
 	$buildNumber = 0;
-	$version = "2.8.11.$buildNumber"
+	$version = "2.8.12.$buildNumber"
 	$preRelease = $null
 }
 
@@ -21,11 +21,11 @@ task appVeyor -depends Clean, CreateNuGetPackage
 task Clean {
 	rmdir $output_directory -ea SilentlyContinue -recurse
 	rmdir $dist_directory -ea SilentlyContinue -recurse
-	exec { . "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe" /nologo /verbosity:quiet $sln_file /p:Configuration=$target_config /t:Clean }
+	exec { . "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe" /nologo /verbosity:quiet $sln_file /p:Configuration=$target_config /t:Clean }
 }
 
 task Compile -depends UpdateVersion {
-	exec { . "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe" /nologo /verbosity:q $sln_file /p:Configuration=$target_config /p:TargetFrameworkVersion=v4.5.2 }
+	exec { . "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe" /nologo /verbosity:q $sln_file /p:Configuration=$target_config /p:TargetFrameworkVersion=v4.5.2 }
 
 	if ($LastExitCode -ne 0) {
         exit $LastExitCode

@@ -152,7 +152,8 @@ namespace IdentityServer3.Core.Configuration.Hosting
                 {
                     HttpOnly = true,
                     Secure = Secure,
-                    Path = CookiePath
+                    Path = CookiePath,
+                    SameSite = options.AuthenticationOptions.CookieOptions.SameSiteNone ? (SameSiteMode?)SameSiteMode.None : null
                 });
             return id;
         }
@@ -199,7 +200,8 @@ namespace IdentityServer3.Core.Configuration.Hosting
                     Expires = DateTimeHelper.UtcNow.AddYears(-1),
                     HttpOnly = true,
                     Secure = Secure,
-                    Path = CookiePath
+                    Path = CookiePath,
+                    SameSite = options.AuthenticationOptions.CookieOptions.SameSiteNone ? (SameSiteMode?)SameSiteMode.None : null
                 });
         }
 

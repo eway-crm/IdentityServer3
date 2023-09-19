@@ -138,7 +138,8 @@ namespace IdentityServer3.Core.Configuration.Hosting
                 HttpOnly = true,
                 Secure = Secure,
                 Path = CookiePath,
-                Expires = expires
+                Expires = expires,
+                SameSite = options.AuthenticationOptions.CookieOptions.SameSiteNone ? (SameSiteMode?)SameSiteMode.None : null
             };
 
             this.ctx.Response.Cookies.Append(CookieName, value, opts);

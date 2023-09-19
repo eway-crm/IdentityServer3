@@ -33,6 +33,7 @@ namespace IdentityServer3.Core.Configuration
             AllowRememberMe = true;
             RememberMeDuration = Constants.DefaultRememberMeDuration;
             SecureMode = CookieSecureMode.SameAsRequest;
+            SameSiteNone = false;
         }
 
         /// <summary>
@@ -107,7 +108,9 @@ namespace IdentityServer3.Core.Configuration
         /// </summary>
         public IAuthenticationSessionStoreProvider SessionStoreProvider { get; set; }
 
-
-
+        /// <summary>
+        /// Gets or sets whethere SameSite.None is used.
+        /// </summary>
+        public bool SameSiteNone { get; set; }
     }
 }
