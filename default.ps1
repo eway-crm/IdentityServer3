@@ -5,7 +5,7 @@ properties {
 	$dist_directory = "$base_directory\distribution"
 	$sln_file = "$src_directory\IdentityServer3.sln"
 	$target_config = "Release"
-	$framework_version = "v4.5"
+	$framework_version = "v4.7"
 	$xunit_path = "$src_directory\packages\xunit.runner.console.2.4.1\tools\net452\xunit.console.exe"
 	$ilmerge_path = "$src_directory\packages\ILMerge.3.0.41\tools\net452\ILMerge.exe"
 	$nuget_path = "$base_directory\nuget.exe"
@@ -25,7 +25,7 @@ task Clean {
 }
 
 task Compile -depends UpdateVersion {
-	exec { . "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe" /nologo /verbosity:q $sln_file /p:Configuration=$target_config /p:TargetFrameworkVersion=v4.5.2 }
+	exec { . "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe" /nologo /verbosity:q $sln_file /p:Configuration=$target_config /p:TargetFrameworkVersion=v4.7.2 }
 
 	if ($LastExitCode -ne 0) {
         exit $LastExitCode
@@ -69,9 +69,9 @@ task ILMerge -depends Compile {
 			}
 	}
 
-	New-Item $dist_directory\lib\net45 -Type Directory
-	Invoke-Expression "$ilmerge_path /targetplatform:v4 /attr:$src_directory\Version\bin\Release\Version.dll /internalize /allowDup /target:library /out:$dist_directory\lib\net45\IdentityServer3.dll $input_dlls /keyfile:IdentityServer3.snk"
-	Copy-Item -Path $dist_directory\lib\net45\* -Destination $base_directory\..\eWay\Tools\IdentityServer3
+	New-Item $dist_directory\lib\net47 -Type Directory
+	Invoke-Expression "$ilmerge_path /targetplatform:v4 /attr:$src_directory\Version\bin\Release\Version.dll /internalize /allowDup /target:library /out:$dist_directory\lib\net47\IdentityServer3.dll $input_dlls /keyfile:IdentityServer3.snk"
+	Copy-Item -Path $dist_directory\lib\net47\* -Destination $base_directory\..\eWay\Tools\IdentityServer3
 	Copy-Item -Path $output_directory\System.IdentityModel.Tokens.Jwt.dll -Destination $base_directory\..\eWay\Tools\IdentityServer3
 }
 
@@ -95,6 +95,6 @@ task CreateNuGetPackage -depends ILMerge {
 
 
 	copy-item $src_directory\IdentityServer3.nuspec $dist_directory
-	copy-item $output_directory\IdentityServer3.xml $dist_directory\lib\net45\
+	copy-item $output_directory\IdentityServer3.xml $dist_directory\lib\net47\
 	exec { . $nuget_path pack $dist_directory\IdentityServer3.nuspec -BasePath $dist_directory -OutputDirectory $dist_directory -version $packageVersion }
 }
