@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>IdentityServer3.Core</RootNamespace>
     <AssemblyName>IdentityServer3</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
@@ -244,11 +244,7 @@
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\RequestedClaimTypes.cs" />
     <Compile Include="Models\Contexts\SignOutContext.cs" />
-    <Compile Include="Resources\T4resx.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>T4resx.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Resources\Enums.cs" />
     <Compile Include="ResponseHandling\IntrospectionResponseGenerator.cs" />
     <Compile Include="Results\CheckSessionResult.cs" />
     <Compile Include="Results\ResetPasswordVerifyActionResult.cs" />
@@ -537,10 +533,6 @@
     </None>
     <None Include="app.config" />
     <None Include="bundleconfig.json" />
-    <None Include="Resources\T4resx.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>T4resx.cs</LastGenOutput>
-    </None>
     <None Include="Services\DefaultViewService\HttpAssets\app\app.less" />
     <None Include="Services\DefaultViewService\HttpAssets\libs\bootstrap\custom.less" />
     <EmbeddedResource Include="Resources\Scopes.resx">
