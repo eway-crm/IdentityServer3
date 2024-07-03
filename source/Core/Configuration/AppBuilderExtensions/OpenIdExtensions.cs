@@ -34,34 +34,39 @@ namespace IdentityServer3.Core.Configuration.AppBuilderExtensions
 
                 Notifications = new OpenIdConnectAuthenticationNotifications
                 {
-                    RedirectToIdentityProvider = notification =>
+                    RedirectToIdentityProvider = context =>
                     {
-                        if (notification.ProtocolMessage.RequestType == Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectRequestType.Authentication)
+                        if (context.ProtocolMessage.RequestType == Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectRequestType.Authentication)
                         {
-                            var signInMessage = notification.OwinContext.Environment.GetSignInMessage();
-                            string webServiceUrl = notification.OwinContext.Environment.GetIdentityServerWebServiceUri();
+                            var signInMessage = context.OwinContext.Environment.GetSignInMessage();
+                            string webServiceUrl = context.OwinContext.Environment.GetIdentityServerWebServiceUri();
                             if (signInMessage != null)
                             {
-                                notification.ProtocolMessage.Prompt = signInMessage.PromptMode;
-                                notification.ProtocolMessage.State = $"{Base64Url.Encode(Encoding.UTF8.GetBytes(webServiceUrl))}.{notification.ProtocolMessage.State}";
+                                context.ProtocolMessage.Prompt = signInMessage.PromptMode;
+                                context.ProtocolMessage.State = $"{Base64Url.Encode(Encoding.UTF8.GetBytes(webServiceUrl))}.{context.ProtocolMessage.State}";
 
-                                if (!notification.OwinContext.Authentication.AuthenticationResponseChallenge.Properties.Dictionary.TryGetValue("login_hint", out string loginHint))
+                                if (!context.OwinContext.Authentication.AuthenticationResponseChallenge.Properties.Dictionary.TryGetValue("login_hint", out string loginHint))
                                 {
                                     loginHint = signInMessage.LoginHint;
                                 }
 
-                                notification.ProtocolMessage.LoginHint = loginHint;
+                                context.ProtocolMessage.LoginHint = loginHint;
                             }
                         }
 
                         return Task.FromResult(0);
                     },
-                    AuthenticationFailed = notification =>
+                    AuthenticationFailed = context =>
                     {
-                        if (string.Equals(notification.ProtocolMessage.Error, AuthorizeErrors.AccessDenied, StringComparison.Ordinal))
+                        if (string.Equals(context.ProtocolMessage.Error, AuthorizeErrors.AccessDenied, StringComparison.Ordinal))
                         {
-                            notification.HandleResponse();
-                            notification.Response.Redirect(notification.OwinContext.Environment.GetIdentityServerBaseUrl() + "error?message=access_denied");
+                            context.HandleResponse();
+                            context.Response.Redirect(context.OwinContext.Environment.GetIdentityServerBaseUrl() + $"error?message={AuthorizeErrors.AccessDenied}");
+                        }
+                        else if (context.Exception.Message.StartsWith("IDX21323"))
+                        {
+                            context.HandleResponse();
+                            context.Response.Redirect(context.OwinContext.Environment.GetIdentityServerBaseUrl() + $"error?message={AuthorizeErrors.InvalidNonce}");
                         }
 
                         return Task.FromResult(0);

@@ -349,6 +349,7 @@ namespace IdentityServer3.Core
             public const string RequestNotSupported      = "request_not_supported";
             public const string RequestUriNotSupported   = "request_uri_not_supported";
             public const string RegistrationNotSupported = "registration_not_supported";
+            public const string InvalidNonce             = "invalid_nonce";
         }
 
         public static class TokenErrors
