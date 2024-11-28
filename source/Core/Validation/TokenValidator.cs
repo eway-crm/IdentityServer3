@@ -288,7 +288,7 @@ namespace IdentityServer3.Core.Validation
 
             if (DateTimeOffsetHelper.UtcNow >= token.CreationTime.AddSeconds(token.Lifetime))
             {
-                LogError("Token expired.");
+                LogWarn("Token expired.");
 
                 await _tokenHandles.RemoveAsync(tokenHandle);
                 return Invalid(Constants.ProtectedResourceErrors.ExpiredToken);
