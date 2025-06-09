@@ -319,7 +319,7 @@ namespace IdentityServer3.Core.Validation
             if (isActiveCtx.IsActive == false)
             {
                 var error = "User has been disabled: " + _validatedRequest.AuthorizationCode.Subject;
-                LogError(error);
+                LogWarn(error);
                 await RaiseFailedAuthorizationCodeRedeemedEventAsync(code, error);
 
                 return Invalid(Constants.TokenErrors.InvalidRequest);
@@ -644,7 +644,7 @@ namespace IdentityServer3.Core.Validation
             if (isActiveCtx.IsActive == false)
             {
                 var error = "User has been disabled: " + _validatedRequest.RefreshToken.SubjectId;
-                LogError(error);
+                LogWarn(error);
                 await RaiseRefreshTokenRefreshFailureEventAsync(refreshTokenHandle, error);
 
                 return Invalid(Constants.TokenErrors.InvalidRequest);
