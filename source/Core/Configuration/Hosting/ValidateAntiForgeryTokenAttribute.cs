@@ -75,7 +75,7 @@ namespace IdentityServer3.Core.Configuration.Hosting
 
             if (!success)
             {
-                Logger.ErrorFormat("AntiForgery validation failed -- returning error page");
+                Logger.Warn("AntiForgery validation failed -- returning error page");
 
                 var options = env.ResolveDependency<IdentityServerOptions>();
                 var viewSvc = env.ResolveDependency<IViewService>();
