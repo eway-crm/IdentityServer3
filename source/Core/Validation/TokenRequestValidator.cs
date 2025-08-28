@@ -290,7 +290,7 @@ namespace IdentityServer3.Core.Validation
             if (redirectUri.Equals(_validatedRequest.AuthorizationCode.RedirectUri, StringComparison.Ordinal) == false)
             {
                 var error = "Invalid redirect_uri: " + redirectUri;
-                LogError(error);
+                LogWarn(error);
                 await RaiseFailedAuthorizationCodeRedeemedEventAsync(code, error);
 
                 return Invalid(Constants.TokenErrors.UnauthorizedClient);
