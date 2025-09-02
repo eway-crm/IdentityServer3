@@ -209,7 +209,7 @@ namespace IdentityServer3.Core.Validation
             var authZcode = await _authorizationCodes.GetAsync(code);
             if (authZcode == null)
             {
-                LogError("Invalid authorization code: " + code);
+                LogWarn("Invalid authorization code: " + code);
                 await RaiseFailedAuthorizationCodeRedeemedEventAsync(code, "Invalid handle");
 
                 return Invalid(Constants.TokenErrors.InvalidGrant);
