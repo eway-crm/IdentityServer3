@@ -543,7 +543,7 @@ namespace IdentityServer3.Core.Validation
             if (refreshTokenHandle.IsMissing())
             {
                 var error = "Refresh token is missing";
-                LogError(error);
+                LogWarn(error);
                 await RaiseRefreshTokenRefreshFailureEventAsync(null, error);
 
                 return Invalid(Constants.TokenErrors.InvalidRequest);
@@ -552,7 +552,7 @@ namespace IdentityServer3.Core.Validation
             if (refreshTokenHandle.Length > _options.InputLengthRestrictions.RefreshToken)
             {
                 var error = "Refresh token too long";
-                LogError(error);
+                LogWarn(error);
                 await RaiseRefreshTokenRefreshFailureEventAsync(null, error);
 
                 return Invalid(Constants.TokenErrors.InvalidGrant);
